@@ -103,3 +103,8 @@ calculator.append(
   zeroBtn,
   sumBtn
 );
+
+const numberButtons = document.querySelectorAll("[data-number]");
+const operationButtons = document.querySelectorAll(["data-operation"]);
+
+console.log(deleteBtn);
