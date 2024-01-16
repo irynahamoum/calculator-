@@ -1,13 +1,13 @@
 const calculator = document.querySelector(".calc-grid");
 const output = document.querySelector(".output");
 
-const previousOperand = document.createElement("div");
-const currentOperand = document.createElement("div");
+const previousOperandTxtEl = document.createElement("div");
+const currentOperandTxtEl = document.createElement("div");
 
-output.append(previousOperand, currentOperand);
+previousOperandTxtEl.classList.add("previous-operand");
+currentOperandTxtEl.classList.add("current-operand");
 
-previousOperand.classList.add("previous-operand");
-currentOperand.classList.add("current-operand");
+output.append(previousOperandTxtEl, currentOperandTxtEl);
 
 const allClearBtn = document.createElement("button");
 allClearBtn.textContent = "AC";
@@ -104,7 +104,65 @@ calculator.append(
   sumBtn
 );
 
+// =======================================
+class Calculator {
+  constructor(previousOperandTxtEl, currentOperandTxtEl) {
+    this.previousOperandTxtEl = previousOperandTxtEl;
+    this.currentOperandTxtEl = currentOperandTxtEl;
+    this.clear();
+  }
+
+  clear() {
+    this.currentOperand = "";
+    this.previousOperand = "";
+    this.operation = undefined;
+  }
+
+  delete() {}
+
+  appendNumber(number) {}
+
+  chooseOperation(operation) {}
+
+  compute() {}
+
+  updateDisplay() {}
+}
+
+// =======================================
+
 const numberButtons = document.querySelectorAll("[data-number]");
 const operationButtons = document.querySelectorAll(["data-operation"]);
 
 console.log(deleteBtn);
+
+const calculatorObject = new Calculator(previousOperand, currentOperand);
+
+numberButtons.forEach((button) => {
+  button.addEventListener(click, () => {
+    calculatorObject.appendNumber(button.innerText);
+    calculatorObject.updateDisplay();
+  });
+});
+
+operationButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    calculator.chooseOperation(button.innerText);
+    calculator.updateDisplay();
+  });
+});
+
+sumBtn.addEventListener("click", (button) => {
+  calculator.compute();
+  calculator.updateDisplay();
+});
+
+allClearBtn.addEventListener("click", (button) => {
+  calculator.clear();
+  calculator.updateDisplay();
+});
+
+deleteBtn.addEventListener("click", (button) => {
+  calculator.delete();
+  calculator.updateDisplay();
+});
